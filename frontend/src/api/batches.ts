@@ -1,1 +1,1 @@
-import {request} from './client';import {Batch} from '../types/domain';export const getBatches=()=>request<Batch[]>('/batches');
+import {request} from './client';import {Batch,QuotaChannel} from '../types/domain';export const getBatches=()=>request<Batch[]>('/batches');export const getQuota=(id:number)=>request<QuotaChannel[]>(`/batches/${id}/quota`);

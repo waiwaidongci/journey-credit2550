@@ -6,8 +6,11 @@ from ..schemas.batch import BatchOutput
 from ..schemas.journey import JourneyOutput
 from ..services.batch_service import list_batches
 from ..services.journey_service import list_journeys
+from ..services.scenario_service import batch_quota
 router=APIRouter(prefix="/batches",tags=["batches"])
 @router.get("",response_model=list[BatchOutput])
 def index(db:Session=Depends(get_db),user=Depends(current_user)):return list_batches(db)
 @router.get("/{bid}/journeys",response_model=list[JourneyOutput])
 def journeys(bid:int,db:Session=Depends(get_db),user=Depends(current_user)):return list_journeys(db,bid)
+@router.get("/{bid}/quota")
+def quota(bid:int,db:Session=Depends(get_db),user=Depends(current_user)):return batch_quota(db,bid)
